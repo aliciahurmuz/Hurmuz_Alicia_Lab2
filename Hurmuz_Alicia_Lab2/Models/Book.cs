@@ -15,9 +15,8 @@ namespace Hurmuz_Alicia_Lab2.Models
         public DateTime PublishingDate { get; set; }
         public int? PublisherID { get; set; }
         public Publisher? Publisher { get; set; }
-        public int AuthorID { get; set; } // cheie straina către Authors
-
-        [ForeignKey("AuthorID")]
-        public Authors Author { get; set; } // proprietate de navigare catre Authors
+        public int? AuthorID { get; set; } // cheie straina către Authors
+        public Author? Author { get; set; } // proprietate de navigare catre Authors
+        public ICollection<BookCategory>? BookCategories { get; set; }
     }
 }

@@ -17,5 +17,7 @@ namespace Hurmuz_Alicia_Lab2.Data
         public DbSet<Hurmuz_Alicia_Lab2.Models.Book> Book { get; set; } = default!;
 
         public DbSet<Hurmuz_Alicia_Lab2.Models.Publisher>? Publisher { get; set; }
+
+        public DbSet<Hurmuz_Alicia_Lab2.Models.Category>? Category { get; set; }
     }
 }

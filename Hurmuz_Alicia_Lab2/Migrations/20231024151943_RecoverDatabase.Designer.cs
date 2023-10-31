@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Hurmuz_Alicia_Lab2.Migrations
 {
     [DbContext(typeof(Hurmuz_Alicia_Lab2Context))]
-    [Migration("20231018160139_UpdateBooks")]
-    partial class UpdateBooks
+    [Migration("20231024151943_RecoverDatabase")]
+    partial class RecoverDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -24,7 +24,7 @@ namespace Hurmuz_Alicia_Lab2.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("Hurmuz_Alicia_Lab2.Models.Authors", b =>
+            modelBuilder.Entity("Hurmuz_Alicia_Lab2.Models.Author", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -42,7 +42,7 @@ namespace Hurmuz_Alicia_Lab2.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Authors");
+                    b.ToTable("Author");
                 });
 
             modelBuilder.Entity("Hurmuz_Alicia_Lab2.Models.Book", b =>
@@ -53,7 +53,7 @@ namespace Hurmuz_Alicia_Lab2.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
-                    b.Property<int>("AuthorID")
+                    b.Property<int?>("AuthorID")
                         .HasColumnType("int");
 
                     b.Property<decimal>("Price")
@@ -97,11 +97,9 @@ namespace Hurmuz_Alicia_Lab2.Migrations
 
             modelBuilder.Entity("Hurmuz_Alicia_Lab2.Models.Book", b =>
                 {
-                    b.HasOne("Hurmuz_Alicia_Lab2.Models.Authors", "Author")
-                        .WithMany()
-                        .HasForeignKey("AuthorID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("Hurmuz_Alicia_Lab2.Models.Author", "Author")
+                        .WithMany("Books")
+                        .HasForeignKey("AuthorID");
 
                     b.HasOne("Hurmuz_Alicia_Lab2.Models.Publisher", "Publisher")
                         .WithMany("Books")
@@ -110,6 +108,11 @@ namespace Hurmuz_Alicia_Lab2.Migrations
                     b.Navigation("Author");
 
                     b.Navigation("Publisher");
+                });
+
+            modelBuilder.Entity("Hurmuz_Alicia_Lab2.Models.Author", b =>
+                {
+                    b.Navigation("Books");
                 });
 
             modelBuilder.Entity("Hurmuz_Alicia_Lab2.Models.Publisher", b =>
